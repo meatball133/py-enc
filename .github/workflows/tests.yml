@@ -10,4 +10,19 @@ on:
     - cron: '0 0 * * 0'
 
 jobs:
-  
+  jobs: 
+  tests:
+    name: Run Tests
+    strategy:
+      # Allows running the job multiple times with different configurations
+      matrix:
+        os: ["windows-2022", "ubuntu-22.04"]
+    runs-on: ${{matrix.os}}
+    container:
+      image: docker-library/python:3.12-rc
+    steps:
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9
+      - name: Install dependencies
+        run: python3.12 -m pip install -r requirements.txt
+      - name: Run generator tests
+        run: python3.12 -m pytest
