@@ -1,4 +1,4 @@
-def get_pixels(image, width, height):
+def get_pixels(width, height):
     for n in range(width):
         for m in range(height):
-            yield image.getpixel((n, m))
+            yield (n, m)
