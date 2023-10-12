@@ -1,4 +1,7 @@
 from PIL import Image, ImageSequence
+from py_enc.utils import get_pixels
+from py_enc.encoders import *
+import time
 
 class ImageHandler:
     """A class to handle images for cryptography
@@ -61,7 +64,12 @@ class ImageHandler:
         """
         match method:
             case _:
-                raise NotImplementedError(f"Method {method} not implemented")
+                info = self.file_info()
+                x = get_pixels(info["size"][0], info["size"][1])
+                for i in x:
+                    new_pixel = set_black_pixel(self.image.getpixel(i))
+                    self.image.putpixel(i, new_pixel)
+                    
 
     def decode(self, method, **kwargs):
         """Decode data from the image
@@ -81,3 +89,8 @@ class ImageHandler:
         match method:
             case _:
                 raise NotImplementedError(f"Method {method} not implemented")
+
+
+image_handler = ImageHandler("img/d.png")
+image_handler.encode("lsb")
+image_handler.write("img/d.png")
