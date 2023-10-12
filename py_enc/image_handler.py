@@ -1,6 +1,6 @@
 from PIL import Image, ImageSequence
-from utils import get_pixels
-from encoders import *
+from py_enc.utils import get_pixels
+from py_enc.encoders import *
 import time
 
 class ImageHandler:
