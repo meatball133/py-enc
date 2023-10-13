@@ -11,7 +11,7 @@ def insert_data(pixel, data):
 
     i = 0
     while i <= 3:
-        pixel_channel = pixel[i]
+        channel = pixel[i]
 
         # Konverterar data till binärt i en sträng med korrekt antal siffror (8) 
         binary_data = f"0b{"0" * (10 - len(data))}{data[2:]}"
@@ -20,14 +20,24 @@ def insert_data(pixel, data):
         subdata = int((binary_data)[2*i+2 : 2*i+4], 2)
 
         # Sätter in data
-        pixel_channel = pixel_channel >> 2 << 2 
-        pixel_channel += subdata
+        channel = channel >> 2 << 2 
+        channel += subdata
         
-        new_pixel[i] = pixel_channel
+        new_pixel[i] = channel
 
         i += 1
 
     return tuple(new_pixel)
 
 
+def extract_data(pixel):
+    data = "0b"
+
+    for channel in pixel:
+        binary_data = f"0b{"0" * (10 - len(bin(channel)))}{bin(channel)[2:]}"
+
+        data += binary_data[-2:]
+
+    data = int(data, 2)
+    return data
 
