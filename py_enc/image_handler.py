@@ -1,6 +1,6 @@
 from PIL import Image, ImageSequence
-from py_enc.utils import get_pixels
 from py_enc.encoders import *
+from utils import *
 import time
 
 class ImageHandler:
@@ -63,6 +63,13 @@ class ImageHandler:
         - key: The key to use to encode the data
         """
         match method:
+            case "rail_fence_cipher":
+                info = self.file_info()
+                x = get_rail_fence_pixels(info["size"][0], info["size"][1], kwargs["key"])
+                encoded_data = encode_rail_fence_cipher(kwargs["data"], kwargs["key"])
+                for i in x:
+                    new_pixel = put_least_significant_bit(self.image.getpixel(i), encoded_data)
+                    self.image.putpixel(i, new_pixel)
             case _:
                 info = self.file_info()
                 x = get_pixels(info["size"][0], info["size"][1])
