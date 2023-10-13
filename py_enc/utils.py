@@ -3,7 +3,7 @@ def get_pixels(width, height):
         for m in range(height):
             yield (n, m)
 
-
+            
 def insert_data(pixel, data):
     new_pixel = [0, 0, 0, 0]
 
@@ -41,3 +41,9 @@ def extract_data(pixel):
     data = int(data, 2)
     return data
 
+  
+def get_rail_fence_pixels(width, height, rail_fence_height):
+    for n in range(width):
+        for m in range(height):
+            if m % (rail_fence_height * 2 - 2) == n % (rail_fence_height * 2 - 2):
+                yield (n, m)
