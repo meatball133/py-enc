@@ -71,11 +71,7 @@ class ImageHandler:
                     new_pixel = put_least_significant_bit(self.image.getpixel(i), encoded_data)
                     self.image.putpixel(i, new_pixel)
             case _:
-                info = self.file_info()
-                x = get_pixels(info["size"][0], info["size"][1])
-                for i in x:
-                    new_pixel = set_black_pixel(self.image.getpixel(i))
-                    self.image.putpixel(i, new_pixel)
+                raise NotImplementedError(f"Method {method} not implemented")
                     
 
     def decode(self, method, **kwargs):
