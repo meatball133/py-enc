@@ -95,5 +95,5 @@ class ImageHandler:
 
 
 image_handler = ImageHandler("img/d.png")
-image_handler.encode("lsb")
-image_handler.write("img/d.png")
+#image_handler.encode("lsb")
+#image_handler.write("img/d.png")
