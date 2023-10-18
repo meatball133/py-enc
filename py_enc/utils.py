@@ -3,8 +3,8 @@ def get_pixels(width, height):
         for m in range(height):
             yield (n, m)
 
-            
-def insert_data_to_pixel(pixel, data):
+
+def encode_data_to_pixel(pixel, data):
     new_pixel = [0, 0, 0, 0]
 
     data = bin(data)
@@ -30,7 +30,7 @@ def insert_data_to_pixel(pixel, data):
     return tuple(new_pixel)
 
 
-def extract_data_from_pixel(pixel):
+def decode_data_from_pixel(pixel):
     data = "0b"
 
     for channel in pixel:
@@ -52,3 +52,5 @@ def get_rail_fence_pixels(width, height, rail_fence_height):
         for m in range(height):
             if m % (rail_fence_height * 2 - 2) == n % (rail_fence_height * 2 - 2):
                 yield (n, m)
+
+print(bin(decode_data_from_pixel(encode_data_to_pixel((38,120,255,0), 0b01011101))))
