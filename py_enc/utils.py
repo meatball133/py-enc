@@ -4,7 +4,7 @@ def get_pixels(width, height):
             yield (n, m)
 
             
-def insert_data(pixel, data):
+def insert_data_to_pixel(pixel, data):
     new_pixel = [0, 0, 0, 0]
 
     data = bin(data)
@@ -30,11 +30,16 @@ def insert_data(pixel, data):
     return tuple(new_pixel)
 
 
-def extract_data(pixel):
+def extract_data_from_pixel(pixel):
     data = "0b"
 
     for channel in pixel:
-        binary_data = f"0b{"0" * (10 - len(bin(channel)))}{bin(channel)[2:]}"
+        # binary_data = f"0b{"0" * (10 - len(bin(channel)))}{bin(channel)[2:]}"
+
+        if len(bin(channel)) < 4:
+            binary_data = f"0b0{bin(channel)[-1]}"
+        else:
+            binary_data = bin(channel)
 
         data += binary_data[-2:]
 
