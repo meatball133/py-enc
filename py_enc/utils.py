@@ -34,7 +34,6 @@ def decode_data_from_pixel(pixel):
     data = "0b"
 
     for channel in pixel:
-        # binary_data = f"0b{"0" * (10 - len(bin(channel)))}{bin(channel)[2:]}"
 
         if len(bin(channel)) < 4:
             binary_data = f"0b0{bin(channel)[-1]}"
