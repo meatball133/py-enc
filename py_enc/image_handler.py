@@ -67,9 +67,20 @@ class ImageHandler:
                 info = self.file_info()
                 x = get_rail_fence_pixels(info["size"][0], info["size"][1], kwargs["key"])
                 encoded_data = encode_rail_fence_cipher(kwargs["data"], kwargs["key"])
-                for i in x:
-                    new_pixel = put_least_significant_bit(self.image.getpixel(i), encoded_data)
+                for (idx, pixel) in enumerate(x):
+                    new_pixel = encode_data_to_pixel(self.image.getpixel(pixel), encoded_data[idx])
                     self.image.putpixel(i, new_pixel)
+                
+            case "random_spacing":
+                info = self.file_info()
+                enumerator = get_random_spacing_pixels(info["size"][0], info["size"][1], kwargs["key"])
+                data = kwargs["data"]
+                for (idx, pixel) in enumerate(enumerator):
+                    new_pixel = encode_data_to_pixel(self.image.getpixel(pixel), data[idx])
+                    self.image.putpixel(pixel, new_pixel)
+                
+
+
             case _:
                 raise NotImplementedError(f"Method {method} not implemented")
                     
