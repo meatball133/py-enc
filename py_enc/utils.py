@@ -1,10 +1,12 @@
+from random import seed, randint
+
 def get_pixels(width, height):
     for n in range(width):
         for m in range(height):
             yield (n, m)
 
-            
-def insert_data(pixel, data):
+
+def encode_data_to_pixel(pixel, data):
     new_pixel = [0, 0, 0, 0]
 
     data = bin(data)
@@ -30,11 +32,15 @@ def insert_data(pixel, data):
     return tuple(new_pixel)
 
 
-def extract_data(pixel):
+def decode_data_from_pixel(pixel):
     data = "0b"
 
     for channel in pixel:
-        binary_data = f"0b{"0" * (10 - len(bin(channel)))}{bin(channel)[2:]}"
+
+        if len(bin(channel)) < 4:
+            binary_data = f"0b0{bin(channel)[-1]}"
+        else:
+            binary_data = bin(channel)
 
         data += binary_data[-2:]
 
@@ -47,3 +53,14 @@ def get_rail_fence_pixels(width, height, rail_fence_height):
         for m in range(height):
             if m % (rail_fence_height * 2 - 2) == n % (rail_fence_height * 2 - 2):
                 yield (n, m)
+
+def get_random_spacing_pixels(width, height, key):
+    seed(key)
+    i = 0
+    while i <= height:
+        j = 0
+        while j <= width:
+            j += randint(1,5)
+            yield(i, j)
+        i += 1
+
